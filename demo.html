@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+
+Example of using the Timeline library.
+
+Copyright Guru Systems 2014
+Tom Young <tom.young@gurusystems.com>
+-->
+
+<html>
+<head>
+    <!-- Need Flot (flotcharts.org), including various plugins... 
+    	 Flot depends on JQuery, does not need to be this exact version -->
+    <script src="jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="jquery.flot.js"></script>
+	<script type="text/javascript" src="jquery.flot.selection.js"></script>
+	<script type="text/javascript" src="jquery.flot.resize.min.js"></script>
+	<script type="text/javascript" src="jquery.flot.time.min.js"></script>
+	
+	<!-- Optionally use Moment (momentjs.com) to handle time based data -->
+	<script type="text/javascript" src="moment.min.js"></script>
+	
+	<!-- Import the Timeline library itself -->
+	<script type="text/javascript" src="timeline.js"></script>
+
+	<style>
+	/* The plot will inherit the font from here */
+	body
+	{
+		margin: 2em;
+		font-family: Verdana, sans-serif;
+	}
+	</style>
+</head>
+
+<body>
+	<h1>Timeline Demo Page</h1>
+	
+	<!-- This is where the plot will end up.  You must set an absolute height. -->
+	<div id="placeholder" style="width:90%;height:200px;"></div>
+    
+	<script type="text/javascript">
+	
+	// Various example colours - note that these are all 70% opacity, this
+	// allows you to see dots underneath but is not compulsory.  Any Flot
+	// compatible colour spec is allowed.
+	var red = "rgba(255, 0, 0, 0.7)";
+	var orange = "rgba(255, 140, 0, 0.7)";
+	var green = "rgba(0, 150, 0, 0.7)";
+	var blue = "rgba(0, 100, 255, 0.7)";
+	var purple = "rgba(255, 100, 255, 0.7)";
+	var grey = "rgba(54, 54, 54, 0.7)";
+
+	// Optional list of horizontal lines to plot (from bottom to top)
+	// - only need to specify this if you might not have data for all lines,
+	// you want them sorted in a particular order, or you are going to
+	// specify a lineLabels array.  
+	// Line identifiers can be any unique object you like.
+	var lines = ["fred", "bob", "iain", 12345];
+	
+	// Create line labels - in this case we make some of them hyperlinks
+	var lineLabels = lines.slice(0); // clone array
+	lineLabels[0] = "<a href='#'>Fred</a>";
+	lineLabels[2] = "<a href='#'>Iain</a>";
+	
+	// List of categories (i.e. colours) to plot
+	var categories = {
+		'alarm': {'color': red},
+		'ping': {'color': grey, 'hoverable': false},
+	}
+	
+	// Array of event objects:
+	// - time can be unix timestamp in milliseconds or a Moment object
+	// - category must an index into the categories list you specify
+	// - line can be any unique identifier for the vertical position in the plot
+	// - label will be displayed when you hover over the point (unless you have
+	// 		set hoverable=false for that category).
+	var t2 = moment.utc("2014-04-28 17:03:33", "YYYY-MM-DD HH:mm:ss").local();
+	var events = [
+		{'time': 1398706972000, 'category': 'alarm', 'line': 12345, 'label': "one"},
+		{'time': 1398706771300, 'category': 'ping', 'line': "fred", 'label': "two"},
+		{'time': 1398706871300, 'category': 'ping', 'line': "bob"},
+		{'time': t2, 'category': 'alarm', 'line': "iain", 'label': "four"},
+		{'time': t2, 'endTime': 1398706672000, 'category': 'alarm', 'line': "bob", "label": "long event"},
+	];
+
+	// Set up a config object - everything apart from the categories list is optional
+	var timelineOptions = {
+		'categories': categories, 
+		'lines': lines,
+		'lineLabels': lineLabels,
+		'sortLines': {'categories': ["ping"], 'direction': 'ascending'},
+	};
+		
+	// Create the timeline
+	var timeline = Timeline('#placeholder', events, timelineOptions);
+	
+	// You may need to expand the plot so that the line labels are readable.
+	// This is a simple way (can be done before or after generating the plot):
+	$('#placeholder').css('min-height', lines.length + 'em');
+	
+	</script>
+	
+</body>
+</html>
