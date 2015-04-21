@@ -1,8 +1,14 @@
 # Timeline
 
-Timeline is a Javascript Library for visualising discrete events.  Each event is plotted as a coloured dot.  Time runs horizontally, and the user can define a set of horizontal "lines" on which to group data.
+Timeline is a Javascript Library for visualising discrete events.  Each event is plotted as a coloured dot or horizontal bar.  Time runs horizontally, and the user can define a set of horizontal "lines" on which to group data.
 
-Drag horizontally to zoom in, and double click to reset the zoom.
+Drag horizontally to zoom in, and double click to reset the zoom. Hover over a point for a tooltip. 
+
+![example plot](sample.png)
+
+This library is mainly used to visualise log files, allowing a user to quickly spot patterns and sequences of events in large datasets:
+
+![example plot 2](sample2.png)
 
 Timeline is based on [Flot](http://www.flotcharts.org) (which in turn is based on [JQuery](http://jquery.com)).
 
