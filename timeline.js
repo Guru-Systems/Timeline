@@ -189,10 +189,14 @@ function makeFlotData(data, conf)
 
 function makeFlotConfig(conf)
 {
+	var tz = 'browser';
+	if (conf.timezone !== undefined)
+		tz = conf.timezone;
+
 	var d = {
 		xaxis: {
 			mode: "time",
-			timezone: "browser",
+			timezone: tz,
 			tickLength: 5,
 			position: "top",
 		},
@@ -205,6 +209,7 @@ function makeFlotConfig(conf)
 			borderWidth: {top:1, bottom:0, left:0, right:0}, 
 			labelMargin: 10,
 			hoverable: true,
+			clickable: true
 		},
 	}
 	

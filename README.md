@@ -72,7 +72,7 @@ Any valid Flot colour spec can be used, but it is often best to stick to transpa
 Set the *hoverable* attribute to **false** if you don't want to display tooltips for this category.  If you don't set this attribute then it defaults to **true** and tooltips will be displayed.
 
 ## Lines
-Each event needs to have a `line` attribute specifying which horizontal line of the plot it should be displayed on.  This can be any unique identifier, though strings and integers are the most common options.xs`.
+Each event needs to have a `line` attribute specifying which horizontal line of the plot it should be displayed on.  This can be any unique identifier, though strings and integers are the most common options.
 
 If you don't specify a lines list, Timeline will automatically identify the unique lines from the data itself and plot them in the order in which they are encountered (bottom to top).  However, if you have a predefined list of lines and you want to preserve its order, or you want to plot lines even if they don't have any events, then the list of lines for the plot can be specified by adding a "lines" array to the options object:
 
@@ -113,6 +113,12 @@ A quick way to ensure that the plot is (just about) large enough is to set the h
 ```
 $('#placeholder').css('min-height', lines.length + 'em');
 ```
+
+## Timezone Support
+
+By default the tool uses the time zone of the user's browser.  If you include the [timezone-js library](https://github.com/mde/timezone-js) then you can specify a different time zone by setting `options.timezone` to an appropriate string such as *"America/New_York"*.
+
+Whatever value you specify just gets passed straight through to the Flot `axis.timezone` property.  See [the Flot documentation](https://github.com/flot/flot/blob/master/API.md#time-series-data) for details.
 
 ## Customised Flot Library
 
